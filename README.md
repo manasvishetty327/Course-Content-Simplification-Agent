@@ -1,62 +1,65 @@
-# 🎓 Course Content Simplification Agent (IBM Cloud Deployment)
+# CLARIFI – Course Content Simplification Agent
 
-## 🧠 Overview
+CLARIFI is an AI agent prototype designed to turn complex academic and technical material into clearer, more accessible explanations. The project is implemented as an IBM watsonx.ai Agent Lab notebook using a LangGraph agent and an IBM Granite foundation model.
 
-The **Course Content Simplification Agent** is designed to make dense academic material more digestible and accessible — especially for beginners, neurodivergent learners, and non-native English speakers. By simplifying technical jargon and restructuring content for clarity, this tool promotes inclusive education and democratized access to knowledge.
+## What It Is Designed to Do
 
----
+The agent instructions focus on helping learners understand academic content by:
 
-## 🎯 Use Case
+- Identifying the main ideas and key concepts in supplied material.
+- Rewriting technical language in simpler terms while preserving meaning.
+- Organising explanations with headings, bullet points, and short sections.
+- Adapting the depth of an explanation to the learner's level.
+- Supporting alternative learning formats such as summaries, step-by-step explanations, FAQs, and glossaries.
+- Encouraging responsible paraphrasing and attribution.
 
-- Simplifies complex course topics (e.g., NLP, AI, engineering)
-- Converts technical descriptions into beginner-friendly explanations
-- Ideal for educators, learners, and instructional designers seeking inclusive learning materials
+These are the agent's configured goals. Actual output quality depends on the input, model response, connected tools, and IBM Cloud environment.
 
----
+## Implementation
 
-## 🛠️ Technologies Used
+The notebook uses:
 
-| Component                  | Purpose                                                                 |
-|---------------------------|-------------------------------------------------------------------------|
-| IBM Watson Machine Learning | Model deployment and hosting for real-time inference                  |
-| IBM Cloud Object Storage   | Storing model artifacts and assets                                     |
-| IBM IAM (Identity & Access) | Authentication using API keys and access tokens                      |
-| IBM Cloud CLI / REST APIs  | Programmatic interaction for uploading, deploying, and testing models |
-| Local Python Environment   | Model packaging, inference script testing                             |
-| Postman / curl / Python    | Manual testing and validation of deployed endpoints                   |
+- **IBM watsonx.ai** for foundation-model inference.
+- **IBM Granite 3.3 8B Instruct** as the configured chat model.
+- **LangGraph** to create and invoke the tool-using agent.
+- **LangChain IBM integration** to connect to watsonx.ai.
+- **IBM Agent Lab utility tools** configured in the notebook, including Google Search, DuckDuckGo, Wikipedia, WebCrawler, Weather, and Tavily Search.
+- **Python** for the agent setup and invocation flow.
 
----
+The notebook requests an IBM Cloud API key at runtime and reads the watsonx project or space identifier from the environment.
 
-## 🧪 Agent Capabilities
+## Repository Contents
 
-- Input: Raw academic content or topic description
-- Output: Simplified explanation structured into beginner-friendly bullets or paragraphs
-- Optional: Can return summaries tailored to a selected education level or age group
+- [`clarifi_agent.ipynb`](./clarifi_agent.ipynb) — agent setup, model configuration, tool integration, instructions, and invocation example.
+- [Agent Preview](./Agent%20Preview.png) — preview image.
+- [Agent Response](./Agent%20Response.png) — example response image.
+- [Deployed Agent](./deployed%20Agent.png) — deployment screenshot.
+- [Results PDF](./COURSE%20CONTENT%20SIMPLIFICATION%20AGENT%20RESULTS.pdf) — project output and results.
+- [Project presentation](./course%20content%20simplification%20agent%20ppt.pdf) — project overview.
 
----
+## Running the Notebook
 
-## 🚀 Development & Deployment (IBM Cloud)
+This repository contains an IBM watsonx.ai Agent Lab notebook rather than a standalone web application.
 
-### 1. Model Preparation
+1. Open IBM watsonx.ai and create or select a project or space with the required foundation-model and Agent Lab access.
+2. Import `clarifi_agent.ipynb` into the notebook environment.
+3. Provide your IBM Cloud API key when prompted.
+4. Configure the required project or space context and ensure the notebook's utility tools are available.
+5. Run the notebook cells in order and enter a question or academic-content prompt when requested.
 
-- Created model script locally using Python-based NLP components
-- Packaged as `.tar.gz` or `.zip` archive with inference logic
-- Verified response schema to ensure clean, readable output
+The notebook uses IBM-hosted services and configured utility tools. It is not an offline or locally runnable agent.
 
-### 2. Upload to IBM Cloud
+## Configuration and Security
 
-- Uploaded model artifact via:
-  - IBM Cloud Console (Watson Studio)
-  - or IBM Cloud CLI / REST API (`ml/v4/models` endpoint)
-- Bound storage instance for managing artifact access
+- Never add IBM Cloud API keys or other credentials to the notebook.
+- The notebook expects project or space configuration to be available in the execution environment.
+- External utility tools may require service access, configuration, or their own credentials.
+- Deployment screenshots and notebook configuration do not guarantee that a hosted endpoint is still active.
 
-### 3. Deployment Creation
+## Scope and Limitations
 
-- Created a new deployment under Watson Machine Learning
-- Selected configuration: *Online Deployment* (synchronous inference)
-- Configured metadata (name, description, tags for educational access)
-- Selected public accessibility option for endpoint sharing
+CLARIFI is an educational agent prototype. It is intended to assist with understanding and summarising learning material, not to replace original sources, instructors, or academic judgement. Generated explanations should be checked for accuracy, and source material should be cited appropriately.
 
-### 4. Endpoint Activation
+## Author
 
-- IBM Cloud generated an endpoint like: https://us-south.ml.cloud.ibm.com/ml/v4/deployments/56cccd3a-9e17-4f00-b426-fbf299ee1ca3/ai_service?version=2021-05-01
+**Manasvi Shetty**
